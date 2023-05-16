@@ -4,7 +4,7 @@ from pinger.serializers import PingerSerializer
 from pinger.models import Pings
 # Create your views here.
 
-class PingerViewSet(viewsets.ViewSet):
+class PingerViewSet(viewsets.ModelViewSet):
 
     queryset = Pings.objects.all()
     serializer_class = PingerSerializer
