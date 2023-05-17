@@ -10,8 +10,8 @@ class PingerManager(models.Manager):
 
 # Create your models here.
 class Pings(models.Model):
-    windfarm_name: models.CharField(max_length=20)
-    turbine_name: models.CharField(max_length=20)
+    windfarm_name = models.CharField(default = "HOW01-GEN", max_length=20)
+    turbine_name = models.CharField(default = "X01YCA01UH002", max_length=20)
     status = models.CharField(
         max_length=8,
         choices=PingStatus.choices,
