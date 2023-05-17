@@ -1,5 +1,6 @@
 from messaging.task_logger import DefaultTaskLogger, Logger
 from sys import platform
+import subprocess
 
 import re
 
