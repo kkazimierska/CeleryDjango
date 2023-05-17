@@ -1,9 +1,17 @@
 from django.db import models
+from typing_extensions import TypedDict
 
 class PingStatus(models.TextChoices):
     ONLINE = 'Online'
     OFFLINE = 'Offline',
     UNKNOWN = 'Unknown'
+
+class PingerParse(TypedDict):
+    ping_sent: int
+    ping_rcv: int
+    prc_lost: int
+    time_avg: float
+    status: str
 
 class PingerManager(models.Manager):
     pass
