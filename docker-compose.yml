@@ -15,5 +15,5 @@ services:
     image: app:django
     # name the image - we can run the image with the tag
     container_name: django_container
-    command: python manage.py runserver 0.0.0.0.:8000
+    command: python manage.py runserver 0.0.0.0:8000
 

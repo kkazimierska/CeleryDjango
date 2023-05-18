@@ -3,3 +3,6 @@ docker build --tag python-django .
 docker run --publish 8000:8000 python-django
 Part#2
 docker compose build
+docker compose run
+# in case I wouldbe creating folders etc.
+docker compose up
