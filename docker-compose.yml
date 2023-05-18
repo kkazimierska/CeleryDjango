@@ -1,0 +1,19 @@
+version: "3.8"
+# Build services we want to run in container
+services:
+  app:
+    build: .
+    # Tell build docekerfile exist and we utlise it
+    volumes:
+      - .:/django
+      # Describe the folder that resides on the container - link up the current folder with container folder
+      # . refres to the local folder - we have links
+      # when I close container I can again build the container
+    ports:
+      - 8000:8000
+      # port on lap and on the container
+    image: app:django
+    # name the image - we can run the image with the tag
+    container_name: django_container
+    command: python manage.py runserver 0.0.0.0.:8000
+

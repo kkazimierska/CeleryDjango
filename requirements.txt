@@ -1,3 +1,8 @@
-typing_extensions
-django
-djangorestframework
+typing_extensions==4.5.0
+Django==4.1.7
+djangorestframework==3.14.0
+
+
+celery~=5.2.7
+django-celery-results~=2.5.0
+django-celery-beat~=2.5.0
