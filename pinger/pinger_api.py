@@ -1,11 +1,16 @@
 from messaging.task_logger import DefaultTaskLogger, Logger
 from sys import platform
 import subprocess
-
+from pinger.models import Pings
 import re
 
-# from pinger.models import PingerParse
 from typing_extensions import TypedDict
+
+# import os
+# import sys
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tutorial.settings')
+# from django.core.management import execute_from_command_line
+# execute_from_command_line(sys.argv)
 
 class PingerParse(TypedDict):
     ping_sent: int
@@ -24,21 +29,24 @@ class Pinger:
         self.ping_results = []
 
     def ping_host(self, host: str):
-        task_cli = f'ping -n {host}'
+        task_cli = f'ping -n {1} {host}'
         ret = subprocess.Popen(task_cli, shell=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         ping_result, ping_error = ret.communicate()
-        ping_result_parsed = self.parse_result(ping_result, self.logger)
+        ping_result_parsed = parse_result(ping_result, self.logger)
         return ping_result_parsed
 
-    def store_ping_results(self):
-        pass
+    def store_ping_results(self, host:str, ping_result: dict):
+        """ Store function uses the fixed windfarm and turbine names. """
+        status = ping_result.get('status')
+        pings = Pings.objects.create(host=host, status=status)
+        pings.save()
 
-    def run_pinger_api(self):
+    def run_pinger_api(self, host="212.77.98.9"):
         self.logger.info('Can execute pinger api.')
         print('Can execute pinger api!')
-        ping_result = self.ping_host(host="212.77.98.9")
+        ping_result = self.ping_host(host=host)
         print(ping_result)
-        self.store_ping_results()
+        self.store_ping_results(host, ping_result)
 
 windows_success_pattern = re.compile(
     r'\s+Packets: Sent = (?P<ping_sent>\d+), Received = (?P<ping_received>\d+), '
